@@ -1,16 +1,32 @@
-# React + Vite
+# SkillQuest
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+SkillQuest is a responsive, gamified learning platform for students in grades 1–11. Learners create a profile, choose a grade, subjects, interests, and goal, then receive grade-matched quests and track progress.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```sh
+npm install
+npm run dev
+```
 
-## React Compiler
+Use `npm run build` to create a production bundle and `npm run lint` to run Oxlint.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Learning flow
 
-## Expanding the Oxlint configuration
+`/` → `/register` → `/onboarding` → `/dashboard`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The dashboard links to `/quest`, `/challenge`, `/progress`, and `/subjects/:subjectId`. Profile, quest history, XP, streaks, achievements, daily challenge results, and subject progress are stored in browser `localStorage` under `skillquest.profile`.
+
+## Project structure
+
+- `src/pages/` contains landing, account, onboarding, dashboard, quest, daily challenge, subject, and progress screens.
+- `src/components/` contains shared branding, student navigation, subject cards, and typed quest answer controls.
+- `src/utils/profile.js` owns profile persistence and grade tracks.
+- `src/utils/learning.js` owns the subject catalog, grade-banded curriculum, typed answer checking, recommendations, adaptive difficulty, XP, streaks, daily challenges, weekly activity, accuracy, and achievements.
+- `src/App.css` contains the existing visual system plus responsive student-workspace styles; `src/index.css` defines the global theme and Tailwind import.
+
+Add curriculum entries to `src/utils/learning.js` to introduce more subjects or learning content. Keep answer checking and profile persistence behind the learning utilities when connecting a backend.
+
+## Prototype boundaries
+
+Authentication and Google sign-in are UI placeholders. Data is stored locally in the current browser and is not synchronized, backed up, or suitable for real student accounts. A production deployment should replace local profile storage with a secure backend, server-side validation, and appropriate privacy controls for minors.

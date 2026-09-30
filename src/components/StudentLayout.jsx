@@ -12,6 +12,7 @@ const navigation = [
 export default function StudentLayout({ profile, active, children }) {
   const navigate = useNavigate()
   const firstName = profile.name?.trim().split(' ')[0] || profile.username || 'Learner'
+  const avatar = profile.avatar || profile.name?.trim().split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase() || firstName[0]?.toUpperCase() || 'Q'
 
   function signOut() {
     clearProfile()
@@ -38,7 +39,7 @@ export default function StudentLayout({ profile, active, children }) {
       <section className="dashboard-main">
         <header className="dashboard-topbar">
           <div className="dashboard-breadcrumb"><span>MY SPACE</span><b>{active}</b></div>
-          <div className="topbar-actions"><div className="topbar-profile"><div className="profile-initial">{firstName[0]?.toUpperCase() || 'Q'}</div><span><b>{profile.username}</b><small>{profile.grade} · {gradeTrack(profile.grade)}</small></span></div></div>
+          <div className="topbar-actions"><div className="topbar-profile"><div className="profile-initial" role="img" aria-label={`${firstName}'s avatar`}>{avatar}</div><span><b>{profile.username}</b><small>{profile.grade} · {gradeTrack(profile.grade)}</small></span></div></div>
         </header>
         <div className="dashboard-content">{children}</div>
       </section>

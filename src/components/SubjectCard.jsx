@@ -6,8 +6,8 @@ export default function SubjectCard({ subject, stats, quest, onRemove }) {
     <article className={`subject-card subject-card--${subject.color}`}>
       <div className="subject-card__head">
         <span className="subject-card__icon">{subject.icon}</span>
-        <div><h3>{subject.name}</h3><span>LEVEL {stats.level} <i /> {stats.xp} XP</span></div>
-        <button type="button" className="subject-remove" onClick={() => onRemove(subject.id)} aria-label={`Remove ${subject.name}`} title={`Remove ${subject.name}`}><X size={15} /></button>
+        <div><Link className="subject-card__title" to={`/subjects/${subject.id}`}><h3>{subject.name}</h3></Link><span>LEVEL {stats.level} <i /> {stats.xp} XP</span></div>
+        {onRemove && <button type="button" className="subject-remove" onClick={() => onRemove(subject.id)} aria-label={`Remove ${subject.name}`} title={`Remove ${subject.name}`}><X size={15} /></button>}
       </div>
       <div className="subject-card__progress"><span><i style={{ width: `${stats.progress}%` }} /></span><b>{stats.progress}%</b></div>
       <div className="subject-card__facts"><span><b>{stats.completed}</b> quests</span><span>Now: <b>{stats.currentTopic}</b></span></div>
