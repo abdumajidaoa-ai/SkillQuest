@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import StudentLayout from '../components/StudentLayout.jsx'
 import SubjectCard from '../components/SubjectCard.jsx'
 import { getAccuracy, getAchievements, getLevel, getRecommendedQuests, getStreak, getSubject, getSubjectStats, getWeeklyActivity } from '../utils/learning.js'
+import useLanguage from '../utils/useLanguage.js'
 
 export default function ProgressPage({ profile }) {
+  const { t } = useLanguage()
   const quests = getRecommendedQuests(profile)
   const subjects = (profile.subjects || []).map((id) => ({ subject: getSubject(id), stats: getSubjectStats(profile, id), quest: quests.find((quest) => quest.subjectId === id) })).filter((item) => item.subject)
   const level = getLevel(Number(profile.xp || 0))
@@ -17,13 +19,14 @@ export default function ProgressPage({ profile }) {
 
   return (
     <StudentLayout profile={profile} active="progress">
-      <header className="progress-page-heading"><div><span className="panel-kicker"><BarChart3 size={13} /> YOUR LEARNING JOURNEY</span><h1>Progress</h1><p>Every completed quest builds a skill you can keep.</p></div><Link className="button button--quiet" to="/dashboard">Back to dashboard <ArrowRight size={15} /></Link></header>
+      <header className="progress-page-heading"><div><span className="panel-kicker"><BarChart3 size={13} /> YOUR LEARNING JOURNEY</span><h1>{t('progress')}</h1><p>{t('progressSubtitle')}</p></div><Link className="button button--quiet" to="/dashboard">Back to dashboard <ArrowRight size={15} /></Link></header>
       <section className="progress-summary-grid">
         <ProgressMetric icon={Star} label="Total XP" value={Number(profile.xp || 0).toLocaleString()} caption="Across all subjects" tone="violet" />
         <ProgressMetric icon={Zap} label="Level" value={level.level} caption={`${level.remaining} XP to next level`} tone="cyan" />
         <ProgressMetric icon={Flame} label="Streak" value={`${getStreak(profile)} ${getStreak(profile) === 1 ? 'day' : 'days'}`} caption="Keep your daily rhythm" tone="orange" />
         <ProgressMetric icon={Target} label="Quests completed" value={Number(profile.questsCompleted || 0)} caption="Correctly completed" tone="green" />
         <ProgressMetric icon={Gauge} label="Accuracy" value={`${accuracy.percent}%`} caption={`${accuracy.correct} / ${accuracy.attempts} correct`} tone="cyan" />
+        <ProgressMetric icon={Sparkles} label="Learning time" value={`${Number(profile.learningMinutes || 0)} min`} caption="Time spent in quests" tone="violet" />
       </section>
       <div className="progress-grid">
         <section className="progress-panel"><div className="section-row-heading"><div><span className="panel-kicker">LAST 7 DAYS</span><h2>Weekly activity</h2></div><span className="activity-total">{activity.reduce((total, day) => total + day.xp, 0)} XP</span></div>

@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Clock3, Lightbulb, RotateCcw, Sparkles, Star, Target, X } from 'lucide-react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import StudentLayout from '../components/StudentLayout.jsx'
 import QuestAnswer from '../components/QuestAnswer.jsx'
 import { evaluateQuestAnswer, getAchievements, getLevel, getQuest, getRecommendedQuests, getSubject, recordQuestResult } from '../utils/learning.js'
 import { saveProfile } from '../utils/profile.js'
+import { addNotification } from '../utils/notifications.js'
+import { getTimestamp } from '../utils/time.js'
 
 export default function QuestPage({ profile }) {
   const location = useLocation()
@@ -16,7 +18,9 @@ function QuestSession({ profile }) {
   const [student, setStudent] = useState(profile)
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState(null)
+  const startedAt = useRef(0)
   const subjectId = searchParams.get('subject') || student.subjects?.[0]
+  useEffect(() => { startedAt.current = getTimestamp() }, [subjectId])
   const requestedTopic = Number.parseInt(searchParams.get('topic'), 10)
   const quest = subjectId && student.subjects?.includes(subjectId) ? getQuest(student, subjectId, Number.isInteger(requestedTopic) ? { ...student.subjectStats?.[subjectId], difficultyIndex: requestedTopic } : undefined) : null
   const displayQuest = result?.attempt || quest
@@ -28,17 +32,20 @@ function QuestSession({ profile }) {
     const submittedQuest = quest
     const evaluation = evaluateQuestAnswer(submittedQuest, answer)
     const previousLevel = getLevel(Number(student.xp || 0)).level
-    const updated = recordQuestResult(student, submittedQuest, evaluation.correct)
+    const elapsedMinutes = Math.max(1, Math.ceil((getTimestamp() - startedAt.current) / 60000))
+    const updated = recordQuestResult(student, submittedQuest, evaluation.correct, elapsedMinutes)
     saveProfile(updated)
     setStudent(updated)
     const nextQuest = getRecommendedQuests(updated).find((item) => item.subjectId === submittedQuest.subjectId) || getRecommendedQuests(updated)[0]
     const achievementTitles = getAchievements(updated).filter((achievement) => updated.recentAchievementIds?.includes(achievement.id)).map((achievement) => achievement.title)
+    if (evaluation.correct) addNotification({ title: 'Quest completed!', message: `You earned ${updated.xp - Number(student.xp || 0)} XP.${achievementTitles.length ? ` Unlocked: ${achievementTitles.join(', ')}.` : ''}`, type: 'success' })
     setResult({ ...evaluation, xp: updated.xp - Number(student.xp || 0), rewardBreakdown: updated.lastRewardBreakdown, attempt: submittedQuest, nextQuest, levelUp: getLevel(updated.xp).level > previousLevel, achievementTitles })
   }
 
   function retry() {
     setResult(null)
     setAnswer('')
+    startedAt.current = getTimestamp()
   }
 
   return (

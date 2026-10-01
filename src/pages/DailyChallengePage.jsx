@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Flame, Sparkles, Star, Target } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import QuestAnswer from '../components/QuestAnswer.jsx'
 import StudentLayout from '../components/StudentLayout.jsx'
 import { evaluateQuestAnswer, getAchievements, getDailyChallenge, getLevel, recordDailyChallenge } from '../utils/learning.js'
 import { saveProfile } from '../utils/profile.js'
+import { addNotification } from '../utils/notifications.js'
+import { getTimestamp } from '../utils/time.js'
 
 export default function DailyChallengePage({ profile }) {
   const [student, setStudent] = useState(profile)
   const [answers, setAnswers] = useState({})
   const [feedback, setFeedback] = useState(null)
+  const startedAt = useRef(0)
   const challenge = getDailyChallenge(student)
+  useEffect(() => { startedAt.current = getTimestamp() }, [challenge?.id])
 
   function submitChallenge(event) {
     event.preventDefault()
@@ -18,10 +22,12 @@ export default function DailyChallengePage({ profile }) {
     const previousLevel = getLevel(Number(student.xp || 0)).level
     const outcomes = challenge.questions.map((question) => evaluateQuestAnswer(question, answers[question.id]))
     const correct = outcomes.filter((outcome) => outcome.correct).length
-    const updated = recordDailyChallenge(student, challenge, answers)
+    const elapsedMinutes = Math.max(1, Math.ceil((getTimestamp() - startedAt.current) / 60000))
+    const updated = recordDailyChallenge(student, challenge, answers, elapsedMinutes)
     saveProfile(updated)
     setStudent(updated)
     const achievementTitles = getAchievements(updated).filter((achievement) => updated.recentAchievementIds?.includes(achievement.id)).map((achievement) => achievement.title)
+    addNotification({ title: 'Daily challenge completed!', message: `You earned ${updated.xp - Number(student.xp || 0)} XP.${achievementTitles.length ? ` Unlocked: ${achievementTitles.join(', ')}.` : ''}`, type: 'success' })
     setFeedback({ correct, total: challenge.questions.length, xp: updated.xp - Number(student.xp || 0), levelUp: getLevel(updated.xp).level > previousLevel, achievementTitles })
   }
 

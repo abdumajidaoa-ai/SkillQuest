@@ -3,6 +3,9 @@ export const subjectCatalog = [
   { id: 'english', name: 'English', shortName: 'English', icon: 'Aa', color: 'cyan' },
   { id: 'science', name: 'Science', shortName: 'Science', icon: '◉', color: 'green' },
   { id: 'technology', name: 'Technology', shortName: 'Tech', icon: '</>', color: 'gold' },
+  { id: 'design', name: 'Design', shortName: 'Design', icon: '◇', color: 'cyan' },
+  { id: 'business', name: 'Business', shortName: 'Business', icon: '↗', color: 'gold' },
+  { id: 'general-skills', name: 'General Skills', shortName: 'Skills', icon: '✦', color: 'violet' },
 ]
 
 const curriculum = {
@@ -25,6 +28,21 @@ const curriculum = {
     { title: 'Think in steps', topic: 'Logic & sequences', type: 'match_pairs', question: 'Match each computer part to its job.', pairs: [{ left: 'Keyboard', right: 'Input' }, { left: 'Screen', right: 'Output' }, { left: 'Processor', right: 'Thinking' }], answer: { Keyboard: 'Input', Screen: 'Output', Processor: 'Thinking' }, explanation: 'A keyboard sends input, a screen shows output, and a processor handles instructions.', difficulty: 'Beginner', minutes: 8 },
     { title: 'Loop it again', topic: 'Loops & patterns', type: 'mini_challenge', question: 'Trace the loop and answer both steps.', tasks: [{ id: 'total', prompt: 'A loop adds 3 four times. What is the total?', answer: '12' }, { id: 'runs', prompt: 'How many times does the loop run?', answer: '4' }], answer: { total: '12', runs: '4' }, explanation: 'The loop runs four times, so 3 + 3 + 3 + 3 = 12.', difficulty: 'Intermediate', minutes: 10 },
     { title: 'Debug the condition', topic: 'Algorithms & conditions', type: 'short_answer', question: 'A score passes when it is at least 70. Does 68 pass? (yes/no)', answer: 'no', explanation: '“At least 70” means 70 or greater. Since 68 is lower, it does not pass.', difficulty: 'Advanced', minutes: 11 },
+  ],
+  design: [
+    { title: 'Design for everyone', topic: 'Color & contrast', type: 'multiple_choice', question: 'Which choice makes small text easiest to read?', options: ['Light gray on white', 'Dark text on a light background', 'Yellow text on white'], answer: 'Dark text on a light background', explanation: 'Strong contrast between text and its background makes words easier to read for more people.', difficulty: 'Beginner', minutes: 8 },
+    { title: 'Sketch a user journey', topic: 'User-centered design', type: 'fill_blank', question: 'A designer learns what people need by asking them and listening. This is user ____.', answer: 'research', explanation: 'User research helps a designer understand people before deciding what to build.', difficulty: 'Intermediate', minutes: 10 },
+    { title: 'Improve the prototype', topic: 'Testing & iteration', type: 'multiple_choice', question: 'A prototype is confusing to several testers. What is the best next step?', options: ['Ignore the feedback', 'Study where they get stuck and revise the design', 'Add more features immediately'], answer: 'Study where they get stuck and revise the design', explanation: 'Testing reveals friction. Designers use evidence from those moments to improve a prototype.', difficulty: 'Advanced', minutes: 12 },
+  ],
+  business: [
+    { title: 'Plan a simple budget', topic: 'Money choices', type: 'multiple_choice', question: 'You have $10 and spend $4 on supplies. How much remains?', options: ['$4', '$6', '$14'], answer: '$6', explanation: 'Subtract the $4 cost from the $10 budget to find the $6 that remains.', difficulty: 'Beginner', minutes: 8 },
+    { title: 'Find the customer need', topic: 'Ideas & value', type: 'multiple_choice', question: 'Before building a product, what is most useful to learn?', options: ['What problem people need solved', 'Which name sounds coolest', 'How many colors to use'], answer: 'What problem people need solved', explanation: 'Useful products start with a real need. Talking with potential customers helps reveal it.', difficulty: 'Intermediate', minutes: 10 },
+    { title: 'Read the break-even point', topic: 'Costs & revenue', type: 'fill_blank', question: 'A project earns $80 and costs $55. Its profit is $____.', answer: '25', explanation: 'Profit equals revenue minus costs: $80 - $55 = $25.', difficulty: 'Advanced', minutes: 12 },
+  ],
+  'general-skills': [
+    { title: 'Check the source', topic: 'Information literacy', type: 'multiple_choice', question: 'Which is the strongest first check for an online claim?', options: ['See who published it and when', 'Trust the first search result', 'Share it before reading'], answer: 'See who published it and when', explanation: 'A source’s author, evidence, and date help you judge whether a claim is reliable.', difficulty: 'Beginner', minutes: 8 },
+    { title: 'Choose the next step', topic: 'Planning & priorities', type: 'fill_blank', question: 'Breaking a big task into smaller actions makes it easier to ____.', answer: 'start', explanation: 'A clear first step lowers the effort needed to begin and makes progress easier to track.', difficulty: 'Intermediate', minutes: 9 },
+    { title: 'Make a strong decision', topic: 'Critical thinking', type: 'multiple_choice', question: 'Two plans solve a problem. What helps you compare them fairly?', options: ['Use the same clear criteria for both', 'Choose the first idea', 'Ignore possible trade-offs'], answer: 'Use the same clear criteria for both', explanation: 'Shared criteria make trade-offs visible and keep a comparison grounded in evidence.', difficulty: 'Advanced', minutes: 11 },
   ],
 }
 
@@ -125,6 +143,75 @@ const dailyChallengeBanks = {
       ['Cybersecurity', 'What is a strong password practice?', ['Use unique long passwords', 'Reuse one password', 'Share it with friends'], 'Use unique long passwords'],
       ['Algorithms', 'What is a useful first step when debugging?', ['Reproduce the issue', 'Delete the project', 'Ignore the error'], 'Reproduce the issue'],
       ['Computing systems', 'Which component executes program instructions?', ['CPU', 'Keyboard', 'Webcam'], 'CPU'],
+    ],
+  ],
+  design: [
+    [
+      ['Color & contrast', 'Which is easiest to read?', ['Dark text on a light background', 'Yellow text on white', 'Light gray on white'], 'Dark text on a light background'],
+      ['Shapes', 'Which shape has three sides?', ['Triangle', 'Circle', 'Square'], 'Triangle'],
+      ['Observation', 'What can a sketch help a designer do?', ['Share an idea', 'Measure sound', 'Charge a device'], 'Share an idea'],
+      ['Patterns', 'Which pattern repeats?', ['Circle, square, circle, square', 'Circle, square, triangle, star', 'Square, triangle, star, circle'], 'Circle, square, circle, square'],
+      ['Visual clarity', 'Which makes a label clearer?', ['Readable text', 'Tiny pale text', 'Text hidden behind an image'], 'Readable text'],
+    ],
+    [
+      ['User-centered design', 'What helps a designer learn what users need?', ['Ask and listen to users', 'Guess without testing', 'Add features first'], 'Ask and listen to users'],
+      ['Color systems', 'What is a useful reason to use a consistent color system?', ['Help users recognize related actions', 'Make every screen different', 'Hide important labels'], 'Help users recognize related actions'],
+      ['Prototyping', 'What is a prototype?', ['A testable early version', 'A final sales report', 'A password'], 'A testable early version'],
+      ['Accessibility', 'Which text choice usually improves readability?', ['Clear contrast', 'Low contrast', 'Very small type'], 'Clear contrast'],
+      ['Feedback', 'What should a useful design test observe?', ['Where users hesitate or get stuck', 'Only the designer’s favorite color', 'How quickly a laptop starts'], 'Where users hesitate or get stuck'],
+    ],
+    [
+      ['Design testing', 'Several testers miss the same control. What should happen next?', ['Review the evidence and revise it', 'Blame the testers', 'Remove every control'], 'Review the evidence and revise it'],
+      ['Information hierarchy', 'What should visual hierarchy help a user notice first?', ['The most important information', 'Every detail at once', 'Decorative elements only'], 'The most important information'],
+      ['Research ethics', 'How should a designer handle personal research notes?', ['Protect private details', 'Publish names without consent', 'Collect unrelated secrets'], 'Protect private details'],
+      ['Iteration', 'Why test another version after a change?', ['Check whether the change helped', 'Avoid collecting evidence', 'Make the design less clear'], 'Check whether the change helped'],
+      ['Inclusive design', 'What is a strong accessibility practice?', ['Offer more than one way to understand key information', 'Use color as the only signal', 'Prevent keyboard navigation'], 'Offer more than one way to understand key information'],
+    ],
+  ],
+  business: [
+    [
+      ['Money choices', 'You have $10 and spend $4. What remains?', ['$4', '$6', '$14'], '$6'],
+      ['Saving', 'What does saving mean?', ['Keeping money for later', 'Spending money twice', 'Borrowing without a plan'], 'Keeping money for later'],
+      ['Planning', 'What is a budget for?', ['Planning income and spending', 'Choosing a team name', 'Measuring distance'], 'Planning income and spending'],
+      ['Needs & wants', 'Which is usually a need?', ['Food', 'A third toy', 'A new game skin'], 'Food'],
+      ['Teamwork', 'What helps a team reach a shared goal?', ['Clear roles and communication', 'Keeping plans secret', 'Ignoring questions'], 'Clear roles and communication'],
+    ],
+    [
+      ['Ideas & value', 'What is useful to learn before building a product?', ['What problem people need solved', 'Which logo is trendiest', 'How many colors to use'], 'What problem people need solved'],
+      ['Budgeting', 'A plan has $30 and spends $18. What remains?', ['$12', '$18', '$48'], '$12'],
+      ['Team roles', 'Why agree on team roles?', ['Make responsibilities clear', 'Stop sharing ideas', 'Avoid a common goal'], 'Make responsibilities clear'],
+      ['Customer feedback', 'What should you do with repeated customer feedback?', ['Look for a pattern and investigate it', 'Delete every comment', 'Assume it is always wrong'], 'Look for a pattern and investigate it'],
+      ['Value', 'A useful service mainly helps by…', ['Solving a real problem', 'Adding steps without a reason', 'Hiding its cost'], 'Solving a real problem'],
+    ],
+    [
+      ['Costs & revenue', 'Revenue is $80 and costs are $55. What is the profit?', ['$15', '$25', '$135'], '$25'],
+      ['Break-even', 'If costs are $40 and revenue is $40, what is the result?', ['Break-even', 'A $40 profit', 'A $80 loss'], 'Break-even'],
+      ['Decision making', 'What makes a business decision more reliable?', ['Compare evidence, costs, and trade-offs', 'Ignore the budget', 'Choose without checking assumptions'], 'Compare evidence, costs, and trade-offs'],
+      ['Ethics', 'What is a responsible way to use customer data?', ['Collect only what is needed and protect it', 'Share it publicly', 'Keep it forever without a reason'], 'Collect only what is needed and protect it'],
+      ['Planning', 'Why test a small version of an idea first?', ['Learn before investing more resources', 'Avoid hearing feedback', 'Guarantee every outcome'], 'Learn before investing more resources'],
+    ],
+  ],
+  'general-skills': [
+    [
+      ['Information literacy', 'What is a good first check for an online claim?', ['Check who published it and when', 'Share it right away', 'Trust the first result'], 'Check who published it and when'],
+      ['Planning', 'What helps make a big task easier to begin?', ['Choose one small first step', 'Wait until it feels easy', 'Hide the deadline'], 'Choose one small first step'],
+      ['Communication', 'What is active listening?', ['Paying attention and checking what you understood', 'Planning your reply while someone speaks', 'Changing the subject'], 'Paying attention and checking what you understood'],
+      ['Online safety', 'Which detail should stay private?', ['Your password', 'A favorite book', 'A public school subject'], 'Your password'],
+      ['Problem solving', 'What is a useful first move when a problem feels large?', ['Describe the problem clearly', 'Guess at a solution', 'Ignore the details'], 'Describe the problem clearly'],
+    ],
+    [
+      ['Planning & priorities', 'What makes a useful priority list?', ['Important tasks with clear next steps', 'Every idea with no order', 'Only tasks you already finished'], 'Important tasks with clear next steps'],
+      ['Information literacy', 'Which source is usually stronger?', ['A dated report that shows its evidence', 'An anonymous post with no sources', 'A headline with no article'], 'A dated report that shows its evidence'],
+      ['Communication', 'What can you do if instructions are unclear?', ['Ask a focused question', 'Pretend you understand', 'Skip the task'], 'Ask a focused question'],
+      ['Digital wellbeing', 'What is a useful break during focused study?', ['Step away briefly and return', 'Keep switching between unrelated tabs', 'Remove every planned pause'], 'Step away briefly and return'],
+      ['Critical thinking', 'How can you compare two plans fairly?', ['Use the same clear criteria', 'Choose the newest one', 'Ignore trade-offs'], 'Use the same clear criteria'],
+    ],
+    [
+      ['Critical thinking', 'What strengthens a conclusion?', ['Relevant evidence and clear reasoning', 'Repeating a claim', 'Ignoring counterexamples'], 'Relevant evidence and clear reasoning'],
+      ['Source evaluation', 'Why check a source’s date?', ['Evidence may change over time', 'Newer always means correct', 'Dates replace author checks'], 'Evidence may change over time'],
+      ['Planning', 'A plan is behind schedule. What is a useful response?', ['Review progress and adjust the next steps', 'Hide the delay', 'Add unrelated tasks'], 'Review progress and adjust the next steps'],
+      ['Communication', 'What makes feedback constructive?', ['Specific observations and a useful next step', 'Personal insults', 'Vague criticism only'], 'Specific observations and a useful next step'],
+      ['Decision making', 'What is a good way to handle uncertainty?', ['Name assumptions and seek more evidence', 'Pretend there is no uncertainty', 'Choose randomly'], 'Name assumptions and seek more evidence'],
     ],
   ],
 }
@@ -261,9 +348,9 @@ export function getStreak(profile) {
   return daysAgo <= 1 ? Number(profile.streak || 0) : 0
 }
 
-export function recordQuestResult(profile, quest, correct) {
+export function recordQuestResult(profile, quest, correct, durationMinutes = quest.minutes) {
   const previous = profile.subjectStats?.[quest.subjectId] || {}
-  const history = [...(previous.history || []), { correct, date: new Date().toISOString().slice(0, 10), topic: quest.topic, type: quest.type }]
+  const history = [...(previous.history || []), { correct, date: new Date().toISOString().slice(0, 10), topic: quest.topic, type: quest.type, minutes: durationMinutes }]
   const completed = Number(previous.completed || 0) + (correct ? 1 : 0)
   const recommendedPractice = (previous.practiceTopics || []).includes(quest.topic)
   const gainedXp = correct ? quest.reward + (recommendedPractice ? 10 : 0) : 0
@@ -297,6 +384,7 @@ export function recordQuestResult(profile, quest, correct) {
   const nextProfile = {
     ...profile,
     subjectStats,
+    learningMinutes: Number(profile.learningMinutes || 0) + durationMinutes,
     xp: Number(profile.xp || 0) + gainedXp + streakBonus,
     coins: Number(profile.coins || 0) + (correct ? Math.max(1, Math.floor(quest.reward / 10)) : 0),
     questsCompleted: Number(profile.questsCompleted || 0) + (correct ? 1 : 0),
@@ -327,15 +415,19 @@ export function getAchievements(profile) {
   return [
     { id: 'first-quest', title: 'First Quest', detail: 'Complete your first quest', icon: '🎯', unlocked: completed >= 1 },
     { id: 'quests-5', title: '5 Quests Completed', detail: 'Complete five quests', icon: '📚', unlocked: completed >= 5 },
+    { id: 'quests-10', title: '10 Quests Completed', detail: 'Complete ten quests', icon: '🏅', unlocked: completed >= 10 },
+    { id: 'fast-learner', title: 'Fast Learner', detail: 'Complete three quests with at least 80% accuracy', icon: '⚡', unlocked: completed >= 3 && getAccuracy(profile).percent >= 80 },
     { id: 'streak-7', title: '7 Day Streak', detail: 'Learn 7 days in a row', icon: '🔥', unlocked: streak >= 7 },
     { id: 'streak-3', title: '3 Day Streak', detail: 'Learn 3 days in a row', icon: '🌱', unlocked: streak >= 3 },
     { id: 'correct-10', title: '10 Correct Answers', detail: 'Answer ten questions correctly', icon: '✅', unlocked: correctAnswers >= 10 },
     { id: 'math-master', title: 'Math Master', detail: 'Complete 5 math quests', icon: '🧠', unlocked: Number(profile.subjectStats?.mathematics?.completed || 0) >= 5 },
     { id: 'science-explorer', title: 'Science Explorer', detail: 'Complete 5 science quests', icon: '🔬', unlocked: Number(profile.subjectStats?.science?.completed || 0) >= 5 },
     { id: 'tech-builder', title: 'Tech Builder', detail: 'Complete 5 technology quests', icon: '🛠️', unlocked: Number(profile.subjectStats?.technology?.completed || 0) >= 5 },
+    { id: 'code-starter', title: 'Code Starter', detail: 'Complete your first technology quest', icon: '💻', unlocked: Number(profile.subjectStats?.technology?.completed || 0) >= 1 },
     { id: 'perfect-quest', title: 'Perfect Quest', detail: 'Complete a quest with every answer correct', icon: '💯', unlocked: Number(profile.perfectQuests || 0) >= 1 },
     { id: 'english-explorer', title: 'English Explorer', detail: 'Complete 5 English quests', icon: '🚀', unlocked: Number(profile.subjectStats?.english?.completed || 0) >= 5 },
     { id: 'level-up', title: 'Level Up', detail: 'Reach Level 2', icon: '⚡', unlocked: level >= 2 },
+    { id: 'quest-master', title: 'Quest Master', detail: 'Complete 25 quests', icon: '🏆', unlocked: completed >= 25 },
   ]
 }
 
@@ -385,8 +477,9 @@ export function getDailyChallenge(profile, date = new Date()) {
   }
 }
 
-export function recordDailyChallenge(profile, challenge, answers) {
+export function recordDailyChallenge(profile, challenge, answers, durationMinutes) {
   if (!challenge || profile.dailyChallenges?.[challenge.date]?.completed) return profile
+  const trackedMinutes = durationMinutes ?? challenge.questions.length * 2
   const outcomes = challenge.questions.map((question) => ({
     question,
     correct: evaluateQuestAnswer(question, answers[question.id]).correct,
@@ -426,6 +519,7 @@ export function recordDailyChallenge(profile, challenge, answers) {
   const nextProfile = {
     ...profile,
     subjectStats,
+    learningMinutes: Number(profile.learningMinutes || 0) + trackedMinutes,
     xp: Number(profile.xp || 0) + reward,
     coins: Number(profile.coins || 0) + Math.floor(reward / 10),
     correctAnswers: Number(profile.correctAnswers || 0) + correctCount,

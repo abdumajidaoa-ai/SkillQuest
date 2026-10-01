@@ -2,6 +2,10 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Award, BarChart3, BriefcaseBusines
 import { Link } from 'react-router-dom'
 import Brand from '../components/Brand.jsx'
 import PublicLayout from '../layouts/PublicLayout.jsx'
+import QuestCard from '../components/QuestCard.jsx'
+import { getRecommendedQuests, subjectCatalog } from '../utils/learning.js'
+
+const featuredQuests = getRecommendedQuests({ grade: '5th Grade', subjects: ['technology', 'mathematics', 'english'] })
 
 const featureItems = [
   { icon: Zap, title: 'Learning that clicks', text: 'Short, satisfying lessons turn tricky topics into small wins you can actually feel.' },
@@ -52,7 +56,7 @@ export default function LandingPage() {
               <div className="eyebrow"><span className="eyebrow-pulse" /> THE FUTURE OF LEARNING</div>
               <h1>Turn learning<br />into a <span>quest.</span></h1>
               <p className="hero-subtitle">Learn new skills, complete challenges, earn rewards and build your future.</p>
-              <div className="hero-actions"><Link className="button button--primary button--hero" to="/register">Start your quest <ArrowRight size={17} /></Link><a className="button button--quiet button--hero" href="#how-it-works"><CirclePlay size={17} /> Explore</a></div>
+              <div className="hero-actions"><Link className="button button--primary button--hero" to="/register">Start Learning <ArrowRight size={17} /></Link><a className="button button--quiet button--hero" href="#popular-quests"><CirclePlay size={17} /> Explore Quests</a></div>
               <div className="hero-proof"><div className="proof-avatars"><span>J</span><span>M</span><span>A</span><b>+</b></div><p><strong>12,000+</strong> students leveling up</p><span className="proof-separator" /><span className="proof-rating"><Star size={13} fill="currentColor" /> 4.9</span></div>
             </div>
             <QuestPreview />
@@ -69,6 +73,12 @@ export default function LandingPage() {
             <article className="step-card step-card--quest"><div className="step-number">02 <span>— GET INTO IT</span></div><div className="step-art quest-art"><div className="mini-quest mini-quest--one"><span><Code2 size={14} /></span><i><b /><b /><b /></i><em>+80 XP</em></div><div className="mini-quest mini-quest--two"><span><Target size={14} /></span><i><b /><b /><b /></i><em>+120 XP</em></div><div className="quest-spark">✦</div></div><h3>Complete quests</h3><p>Practice real skills through bite-size challenges made to keep you moving.</p></article>
             <article className="step-card step-card--level"><div className="step-number">03 <span>— KEEP RISING</span></div><div className="step-art level-art"><div className="level-disc"><Trophy size={26} /><span>LVL<br /><b>08</b></span></div><div className="level-rays" /><span className="level-spark level-spark--a">✦</span><span className="level-spark level-spark--b">✧</span></div><h3>Level up</h3><p>Earn XP, unlock achievements, and build a portfolio you’re proud to show.</p></article>
           </div>
+        </section>
+
+        <section className="popular-quests-section section-shell" id="popular-quests">
+          <div className="section-heading"><div><span className="section-kicker">A FIRST LOOK</span><h2>Popular quests. <span>Real skills.</span></h2></div><p>Short challenges from the same learning paths you can explore after joining.</p></div>
+          <div className="quest-explorer-grid">{featuredQuests.map((quest) => <QuestCard quest={quest} key={quest.id} to="/register" action="Start learning" />)}</div>
+          <div className="landing-category-links"><span>EXPLORE A LEARNING CATEGORY</span>{subjectCatalog.map((subject) => <Link to="/register" key={subject.id}><i className={`subject-color--${subject.color}`}>{subject.icon}</i>{subject.name}<ArrowUpRight size={13} /></Link>)}</div>
         </section>
 
         <section className="feature-section section-shell" id="features">

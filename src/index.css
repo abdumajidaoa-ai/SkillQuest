@@ -11,9 +11,15 @@
   --bg: #080b16;
   --panel: #11162a;
   --card: #151b32;
-  --purple: #7657ff;
-  --purple-bright: #8b70ff;
-  --cyan: #22d3ee;
+  --purple: #7187ef;
+  --purple-bright: #8093f6;
+  --primary-blue: #7187ef;
+  --surface-raised: #151b32;
+  --surface-base: #101629;
+  --border-subtle: rgba(167, 176, 197, 0.14);
+  --shadow-premium: 0 16px 40px rgba(0, 0, 0, 0.22);
+  --radius-card: 10px;
+  --cyan: #39c4d2;
   --gold: #ffc857;
   --green: #35d07f;
   --red: #ff5c7a;
