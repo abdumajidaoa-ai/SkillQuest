@@ -1,10 +1,11 @@
-import { Award, BarChart3, Bell, Compass, Flame, Home, LifeBuoy, LogOut, Menu, Moon, Newspaper, Search, Settings, Sun, Target, UserRound, Users, X, Zap } from 'lucide-react'
+import { Award, BarChart3, Compass, Flame, Home, LifeBuoy, LogOut, Menu, Moon, Newspaper, Search, Settings, Sun, Target, UserRound, Users, X, Zap } from 'lucide-react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Brand from './Brand.jsx'
 import { clearProfile, gradeTrack } from '../utils/profile.js'
 import { getNotifications, updateNotifications } from '../utils/notifications.js'
 import useLanguage from '../utils/useLanguage.js'
+import NotificationPanel from './NotificationPanel.jsx'
 
 const navigationGroups = [
   { titleKey: 'mySpace', items: [
@@ -74,6 +75,21 @@ export default function StudentLayout({ profile, active, children }) {
     navigate('/')
   }
 
+  function toggleNotifications() {
+    const nextOpen = !notificationsOpen
+    setNotificationsOpen(nextOpen)
+    if (nextOpen) {
+      const read = notifications.map((item) => ({ ...item, read: true }))
+      setNotifications(read)
+      updateNotifications(read)
+    }
+  }
+
+  function clearNotifications() {
+    setNotifications([])
+    updateNotifications([])
+  }
+
   return (
     <main className={`dashboard-page${menuOpen ? ' is-mobile-menu-open' : ''}`}>
       <aside className={`dashboard-sidebar${menuOpen ? ' is-open' : ''}`}>
@@ -95,7 +111,12 @@ export default function StudentLayout({ profile, active, children }) {
           <nav className="platform-top-nav" aria-label="Main navigation">{[
             { to: '/dashboard', labelKey: 'home', end: true }, { to: '/explore', labelKey: 'explore' }, { to: '/quests', labelKey: 'quests' }, { to: '/news', labelKey: 'news' }, { to: '/leaderboard', labelKey: 'leaderboard' },
           ].map(({ to, labelKey, end }) => <NavLink to={to} end={end} key={to}>{t(labelKey)}</NavLink>)}</nav>
-          <div className="topbar-actions"><Link className="topbar-icon-button" to="/search" aria-label={t('search')} title={t('search')}><Search size={17} /></Link><div className="notification-anchor"><button className="topbar-icon-button notification-trigger" type="button" onClick={() => { const nextOpen = !notificationsOpen; setNotificationsOpen(nextOpen); if (nextOpen) { const read = notifications.map((item) => ({ ...item, read: true })); setNotifications(read); updateNotifications(read) } }} aria-label={`${t('notifications')}${notifications.some((item) => !item.read) ? ', unread notifications' : ''}`} aria-expanded={notificationsOpen} title={t('notifications')}><Bell size={17} />{notifications.some((item) => !item.read) && <i className="notification-unread-dot" />}</button>{notificationsOpen && <section className="notification-popover" aria-label={t('notifications')}><div className="notification-popover__header"><b>{t('notifications')}</b>{notifications.length > 0 && <button type="button" onClick={() => { setNotifications([]); updateNotifications([]) }}>{t('clearNotifications')}</button>}</div>{notifications.length ? <div className="notification-list">{notifications.map((item) => <article className={`notification-item${item.read ? '' : ' is-unread'}`} key={item.id}><span className={`notification-item__icon notification-item__icon--${item.type}`}><Bell size={14} /></span><span><b>{item.title}</b><small>{item.message}</small><time dateTime={item.createdAt}>{new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(item.createdAt))}</time></span></article>)}</div> : <div className="notification-empty"><Bell size={18} /><p>{t('emptyNotifications')}</p></div>}</section>}</div><button className="topbar-icon-button" type="button" onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button><Link className="topbar-profile" to="/profile" aria-label={`${profile.username || firstName} profile`}><div className="profile-initial" role="img" aria-label={`${firstName}'s avatar`}>{avatar}</div><span><b>{profile.username}</b><small>{profile.grade} · {gradeTrack(profile.grade)}</small></span></Link></div>
+          <div className="topbar-actions">
+            <Link className="topbar-icon-button" to="/search" aria-label={t('search')} title={t('search')}><Search size={17} /></Link>
+            <NotificationPanel notifications={notifications} open={notificationsOpen} onToggle={toggleNotifications} onClear={clearNotifications} />
+            <button className="topbar-icon-button" type="button" onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button>
+            <Link className="topbar-profile" to="/profile" aria-label={`${profile.username || firstName} profile`}><div className="profile-initial" role="img" aria-label={`${firstName}'s avatar`}>{avatar}</div><span><b>{profile.username}</b><small>{profile.grade} · {gradeTrack(profile.grade)}</small></span></Link>
+          </div>
         </header>
         <div className="dashboard-content">{children}</div>
       </section>

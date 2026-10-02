@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { ArrowRight, ArrowUpRight, Award, BarChart3, Check, Flame, Plus, Sparkles, Star, Target, Zap } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Award, BarChart3, Check, Flame, Plus, Sparkles, Star, Target } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import StudentLayout from '../components/StudentLayout.jsx'
 import SubjectCard from '../components/SubjectCard.jsx'
+import StatCard from '../components/StatCard.jsx'
+import GamificationCard from '../components/GamificationCard.jsx'
 import { getAchievements, getLevel, getRecommendedQuests, getStreak, getSubject, getSubjectStats, getWeeklyActivity, subjectCatalog } from '../utils/learning.js'
 import { saveProfile } from '../utils/profile.js'
 import useLanguage from '../utils/useLanguage.js'
@@ -60,16 +62,12 @@ export default function DashboardHomePage({ profile }) {
         <div className="dashboard-welcome__actions"><div className="coin-wallet"><span>✦</span><b>{student.coins || 0}</b><small>COINS</small></div></div>
       </header>
 
-      <section className="dashboard-level" aria-label="Level and experience">
-        <div className="level-badge"><span><Zap size={20} fill="currentColor" /></span><small>LVL</small><b>{String(level.level).padStart(2, '0')}</b></div>
-        <div className="level-copy"><div className="level-copy__top"><div><span>{student.track?.toUpperCase()} <i /> LEVEL {level.level} · {level.title.toUpperCase()}</span><h2>Every quest moves you forward.</h2></div><div className="level-xp"><b>{xp.toLocaleString()}</b><span> / {level.next.toLocaleString()} XP</span></div></div><div className="dashboard-xp-track"><i style={{ width: `${level.progress}%` }} /></div><div className="level-copy__bottom"><span>{level.remaining.toLocaleString()} XP to Level {level.level + 1}</span><span className="next-level"><span>✦</span> LEVEL {level.level + 1}</span></div></div>
-        <div className="level-decoration">✦</div>
-      </section>
+      <GamificationCard xp={xp} level={level} track={student.track} />
 
       <section className="stats-row" aria-label="Learning summary">
-        <Stat icon={Flame} label="Daily streak" value={`${streak} ${streak === 1 ? 'day' : 'days'}`} tone="orange" />
-        <Stat icon={Target} label="Quests completed" value={Number(student.questsCompleted || 0)} tone="violet" />
-        <Stat icon={BarChart3} label="Overall progress" value={`${averageProgress}%`} tone="cyan" />
+        <StatCard icon={Flame} label="Daily streak" value={`${streak} ${streak === 1 ? 'day' : 'days'}`} tone="orange" />
+        <StatCard icon={Target} label="Quests completed" value={Number(student.questsCompleted || 0)} tone="violet" />
+        <StatCard icon={BarChart3} label="Overall progress" value={`${averageProgress}%`} tone="cyan" />
       </section>
 
       <Link className={`challenge-teaser${student.dailyChallenges?.[todayKey]?.completed ? ' is-complete' : ''}`} to="/challenge"><span className="challenge-teaser__icon"><Sparkles size={17} /></span><span><small>DAILY CHALLENGE</small><b>{student.dailyChallenges?.[todayKey]?.completed ? 'Today’s challenge complete' : 'Five questions, one streak bonus'}</b></span><span className="challenge-teaser__reward">+50 XP</span><ArrowUpRight size={16} /></Link>
@@ -108,10 +106,6 @@ export default function DashboardHomePage({ profile }) {
       <footer className="dashboard-footer"><span><Check size={13} /> Small steps count.</span><span>SKILLQUEST <i /> <Link to="/progress">Your progress</Link></span></footer>
     </StudentLayout>
   )
-}
-
-function Stat({ icon: Icon, label, value, tone }) {
-  return <article className="stat-item"><span className={`stat-icon stat-icon--${tone}`}><Icon size={16} /></span><span className="stat-label">{label}</span><b>{value}</b></article>
 }
 
 function EmptyPanel({ message }) {

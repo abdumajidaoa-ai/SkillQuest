@@ -1,8 +1,11 @@
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Brand from '../components/Brand.jsx'
+import LanguageSelector from '../components/LanguageSelector.jsx'
+import useLanguage from '../utils/useLanguage.js'
 
 export default function PublicLayout({ children }) {
+  const { t } = useLanguage()
   return (
     <div className="public-layout">
       <header className="site-header">
@@ -14,8 +17,9 @@ export default function PublicLayout({ children }) {
             <a href="#students">For students</a>
           </nav>
           <div className="site-header__actions">
-            <Link className="login-link" to="/login">Log in</Link>
-            <Link className="button button--primary button--small" to="/register">Get started <ArrowUpRight size={15} /></Link>
+            <LanguageSelector />
+            <Link className="login-link" to="/login">{t('signIn')}</Link>
+            <Link className="button button--primary button--small" to="/register">{t('getStarted')} <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </header>
