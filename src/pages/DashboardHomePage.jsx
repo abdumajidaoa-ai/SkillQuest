@@ -58,7 +58,7 @@ export default function DashboardHomePage({ profile }) {
   return (
     <StudentLayout profile={student} active="dashboard">
       <header className="dashboard-welcome">
-          <div><span className="dashboard-date">GRADE {student.grade?.replace(/\D/g, '') || '1'} <i /> YOUR LEARNING SPACE</span><h1>{t('welcomeBack')}, {firstName} <span>✦</span></h1><p>{t('welcomeSubtitle')}</p></div>
+          <div><span className="dashboard-date">GRADE {student.grade?.replace(/\D/g, '') || '1'} <i /> YOUR LEARNING SPACE</span><h1>{t('welcomeBack')}, {firstName} <span>✦</span></h1><p>{t('welcomeToday')}</p></div>
         <div className="dashboard-welcome__actions"><div className="coin-wallet"><span>✦</span><b>{student.coins || 0}</b><small>COINS</small></div></div>
       </header>
 
@@ -70,7 +70,7 @@ export default function DashboardHomePage({ profile }) {
         <StatCard icon={BarChart3} label="Overall progress" value={`${averageProgress}%`} tone="cyan" />
       </section>
 
-      <Link className={`challenge-teaser${student.dailyChallenges?.[todayKey]?.completed ? ' is-complete' : ''}`} to="/challenge"><span className="challenge-teaser__icon"><Sparkles size={17} /></span><span><small>DAILY CHALLENGE</small><b>{student.dailyChallenges?.[todayKey]?.completed ? 'Today’s challenge complete' : 'Five questions, one streak bonus'}</b></span><span className="challenge-teaser__reward">+50 XP</span><ArrowUpRight size={16} /></Link>
+      <Link className={`challenge-teaser${student.dailyChallenges?.[todayKey]?.completed ? ' is-complete' : ''}`} to="/challenge"><span className="challenge-teaser__icon"><Sparkles size={17} /></span><span><small>TODAY&apos;S MISSION</small><b>{student.dailyChallenges?.[todayKey]?.completed ? 'Today’s challenge complete' : 'Five questions, one streak bonus'}</b></span><span className="challenge-teaser__reward">+50 XP</span><ArrowUpRight size={16} /></Link>
 
       <div className="dashboard-grid">
         <section className="daily-quest-panel" id="quests">

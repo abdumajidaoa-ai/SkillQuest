@@ -136,7 +136,13 @@ export default function OnboardingPage() {
   const canContinue = step === 1 ? Boolean(grade) : step === 2 ? selectedInterests.length > 0 : selectedGoals.length > 0
 
   return <main className="onboarding-page onboarding-page--guided">
-    <header className="onboarding-header"><Brand /><button className="auth-back onboarding-back" type="button" onClick={back}><ArrowLeft size={15} /> {t('back')}</button><LanguageSelector /></header>
+    <header className="onboarding-header">
+      <div className="onboarding-header__left">
+        <Brand />
+        <button className="auth-back onboarding-back" type="button" onClick={back}><ArrowLeft size={15} /> {t('back')}</button>
+      </div>
+      <LanguageSelector />
+    </header>
     <div className="onboarding-shell">
       <div className="onboarding-welcome"><span className="onboarding-kicker"><Sparkles size={14} /> {t('welcomeBrand')}</span><h1>{profile?.username ? `${t('welcomeBack')}, ${profile.username}` : t('welcomeBrand')}</h1><p>{t(stepKeys[step - 1] === 'stepClassTitle' ? 'stepClassSubtitle' : stepKeys[step - 1] === 'stepInterestsTitle' ? 'stepInterestsSubtitle' : 'stepGoalsSubtitle')}</p></div>
       <div className="guided-progress"><div><span>{t('stepCounter').replace('{step}', String(step))}</span><b>{step}/4</b></div><div className="guided-progress__dots" aria-label={t('stepCounter').replace('{step}', String(step))}>{[1, 2, 3, 4].map((item) => <i className={item <= step ? 'is-complete' : ''} key={item} />)}</div></div>

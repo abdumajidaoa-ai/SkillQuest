@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, BarChart3, BriefcaseBusiness, Check, ChevronRight, CirclePlay, Code2, Flame, GraduationCap, Layers3, Sparkles, Star, Target, Trophy, Zap } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, BarChart3, BriefcaseBusiness, Check, ChevronRight, CirclePlay, Code2, Flame, GraduationCap, Layers3, Sparkles, Star, Target, Trophy, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PublicLayout from '../layouts/PublicLayout.jsx'
 import QuestCard from '../components/QuestCard.jsx'
@@ -62,7 +62,7 @@ export default function LandingPage() {
               <div className="eyebrow"><span className="eyebrow-pulse" /> {t('welcomeBrand')}</div>
               <h1>{t('landingTitle')}</h1>
               <p className="hero-subtitle">{t('landingDescription')}</p>
-              <div className="hero-actions"><Link className="button button--primary button--hero" to="/register">{t('getStarted')} <ArrowRight size={17} /></Link><Link className="landing-signin" to="/login">{t('alreadyAccount')} <b>{t('signIn')}</b></Link><a className="landing-explore-link" href="#popular-quests"><CirclePlay size={16} /> {t('exploreQuests')}</a></div>
+              <div className="hero-actions"><Link className="button button--primary button--hero" to="/register">{t('getStarted')} →</Link><Link className="landing-signin" to="/login">{t('alreadyAccount')} <b>{t('signIn')}</b></Link><a className="landing-explore-link" href="#popular-quests"><CirclePlay size={16} /> {t('exploreQuests')}</a></div>
               <div className="hero-proof"><div className="proof-avatars"><span>J</span><span>M</span><span>A</span><b>+</b></div><p><strong>12,000+</strong> students leveling up</p><span className="proof-separator" /><span className="proof-rating"><Star size={13} fill="currentColor" /> 4.9</span></div>
             </div>
             <QuestPreview />

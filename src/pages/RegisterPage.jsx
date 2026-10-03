@@ -46,7 +46,8 @@ export default function RegisterPage() {
     event.preventDefault()
     setTouched(Object.fromEntries(Object.keys(values).map((key) => [key, true])))
     if (!canSubmit) return
-    saveProfile({ name: values.name.trim(), username: values.username.trim(), avatar: values.name.trim().split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase(), email: values.email.trim(), grade: '', subjects: [], interests: [], goals: [], goal: '', onboardingComplete: false })
+    const profile = { name: values.name.trim(), username: values.username.trim(), avatar: values.name.trim().split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase(), email: values.email.trim(), password: values.password, grade: '', subjects: [], interests: [], goals: [], goal: '', onboardingComplete: false }
+    saveProfile(profile)
     navigate('/onboarding')
   }
 
